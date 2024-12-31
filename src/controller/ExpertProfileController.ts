@@ -31,9 +31,33 @@ export class ExpertProfileController {
         }
         
     }
-    async all() {
-        return this.expertProfileRepository.find({ relations: ["user", "article"] })
+    async all(req: Request, res: Response) {
+        const withUser = req.query.wu === "true"
+        const onlyActive = req.query.onlyActive === "true"
+        const withArticles = req.query.wa === "true"
+        const relations = []
+        if (withUser){
+            relations.push("user")
+        }
+
+        if (withArticles){
+            relations.push("article")
+        }
+        // Apply filter if onlyActive is true
+        if (onlyActive) {
+            const queryBuilder = this.expertProfileRepository.createQueryBuilder("expert")
+                .leftJoinAndSelect("expert.user", "user")
+                .where("user.isActive = :isActive", { isActive: true });
+            if (withArticles) {
+                queryBuilder.leftJoinAndSelect("expert.article", "article");
+            }
+            return queryBuilder.getMany();
+        }
+        else{
+            return this.expertProfileRepository.find({relations: relations})
+        }
     }
+
     // one(id: string)
     // entradas: id: uuid del experto que se quiere encontrar
     // salidas: ExpertProfile

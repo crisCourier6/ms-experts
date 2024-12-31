@@ -62,7 +62,7 @@ export class MainController{
     }
 
     async expertsAll(req: Request, res: Response, next: NextFunction, channel: Channel) {
-        return this.expertProfileController.all()
+        return this.expertProfileController.all(req, res)
     }
 
     async expertsOne(req: Request, res: Response, next: NextFunction, channel: Channel){
