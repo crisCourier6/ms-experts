@@ -1,11 +1,10 @@
 import { AppDataSource } from "../data-source"
 import { NextFunction, Request, Response } from "express"
 import { Article } from "../entity/Article"
-import axios from "axios"
 
 export class ArticleController {
 
-    private articleRepository = AppDataSource.getRepository(Article)
+    private readonly articleRepository = AppDataSource.getRepository(Article)
 
     async all(req:Request, res: Response) {
         const { e } = req.query

@@ -1,14 +1,11 @@
 import { AppDataSource } from "../data-source"
-import { NextFunction, Request, Response } from "express"
-import { User } from "../entity/User";
+import { Request, Response } from "express"
 import { ExpertProfile } from "../entity/ExpertProfile";
-import { v4 as uuidv4, v6 as uuidv6 } from 'uuid';
 import "dotenv/config"
-import axios from "axios"
 
 export class ExpertProfileController {
 
-    private expertProfileRepository = AppDataSource.getRepository(ExpertProfile)
+    private readonly expertProfileRepository = AppDataSource.getRepository(ExpertProfile)
 
     async create(req: any) {
         const createdExpertProfile = await this.expertProfileRepository.save(req)

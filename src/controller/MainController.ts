@@ -2,15 +2,14 @@ import { NextFunction, Request, Response } from "express"
 import { Channel } from "amqplib"
 import { ArticleController } from "./ArticleController"
 import { FoodAdviceController } from "./FoodAdviceController"
-import axios from "axios"
 import "dotenv/config"
 import { ExpertProfileController } from "./ExpertProfileController"
 
 export class MainController{
 
-    private articleController = new ArticleController
-    private foodAdviceController = new FoodAdviceController
-    private expertProfileController = new ExpertProfileController
+    private readonly articleController = new ArticleController
+    private readonly foodAdviceController = new FoodAdviceController
+    private readonly expertProfileController = new ExpertProfileController
     // user rates expert
 
     // articleAll() retorna todos los diarios alimenticios
